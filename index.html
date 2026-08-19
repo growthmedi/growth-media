@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Growth Media — Creative Production Studio</title>
+
+  <meta name="description"
+        content="Growth Media — Creative Production Studio. Real Moments. Real Passion. Real Results.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #050505;
+      color: #f4f1eb;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    :root {
+      --black: #050505;
+      --dark: #0b0b0b;
+      --white: #f4f1eb;
+      --gray: #9b9b9b;
+      --gold: #f5a900;
+      --gold-dark: #b87800;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 18px 6%;
+
+      background: rgba(5, 5, 5, 0.82);
+      backdrop-filter: blur(15px);
+
+      border-bottom: 1px solid rgba(245, 169, 0, 0.15);
+    }
+
+    .nav-logo {
+      width: 125px;
+    }
+
+    .nav-logo img {
+      width: 100%;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      padding: 130px 7% 80px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(circle at 50% 45%, rgba(245,169,0,0.12), transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(245,169,0,0.06), transparent 30%),
+        #050505;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(135deg,
+        transparent 0%,
+        rgba(245,169,0,0.04) 50%,
+        transparent 100%);
+      
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-logo {
+      width: min(600px, 85vw);
+      margin: 0 auto 35px;
+    }
+
+    .hero-logo img {
+      width: 100%;
+      display: block;
+    }
+
+    .hero-line {
+      width: 100px;
+      height: 3px;
+      background: var(--gold);
+      margin: 25px auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 100px);
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: -4px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin: 30px auto 0;
+      max-width: 650px;
+
+      color: #b8b8b8;
+      font-size: 16px;
+      line-height: 1.7;
+      letter-spacing: 1px;
+    }
+
+    .hero-buttons {
+      margin-top: 40px;
+
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 28px;
+
+      text-decoration: none;
+      color: #050505;
+
+      background: var(--gold);
+
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: #ffc13b;
+    }
+
+    .btn-outline {
+      color: #fff;
+      background: transparent;
+      border: 1px solid rgba(245,169,0,0.7);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #050505;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      padding: 110px 7%;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: clamp(40px, 6vw, 75px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: -3px;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-description {
+      max-width: 650px;
+      margin-top: 20px;
+
+      color: #999;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      background: #090909;
+      border-top: 1px solid #171717;
+      border-bottom: 1px solid #171717;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: #aaa;
+      line-height: 1.9;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .about-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      min-height: 180px;
+      padding: 30px;
+
+      background: #0e0e0e;
+      border: 1px solid #222;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 4px;
+      height: 100%;
+
+      background: var(--gold);
+    }
+
+    .stat-number {
+      font-size: 45px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      color: #aaa;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .services {
+      background: #050505;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      padding: 40px 30px;
+      min-height: 280px;
+
+      border: 1px solid #222;
+      background: linear-gradient(145deg, #111, #080808);
+
+      position: relative;
+      overflow: hidden;
+
+      transition: 0.4s;
+    }
+
+    .service:hover {
+      transform: translateY(-7px);
+      border-color: var(--gold);
+    }
+
+    .service-number {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .service h3 {
+      margin-top: 70px;
+      font-size: 27px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .service p {
+      margin-top: 15px;
+      color: #888;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* =========================
+       PORTFOLIO
+    ========================= */
+
+    .portfolio {
+      background: #080808;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      min-height: 420px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #151515,
+          #080808
+        );
+
+      border: 1px solid #222;
+    }
+
+    .project::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.9),
+          transparent 60%
+        );
+    }
+
+    .project-content {
+      position: absolute;
+      z-index: 2;
+
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+    }
+
+    .project-tag {
+      display: inline-block;
+
+      color: #050505;
+      background: var(--gold);
+
+      padding: 7px 12px;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .project h3 {
+      margin-top: 12px;
+      font-size: 35px;
+      text-transform: uppercase;
+    }
+
+    .project p {
+      color: #aaa;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    /* =========================
+       PROCESS
+    ========================= */
+
+    .process {
+      background: #050505;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .process-item {
+      border-top: 2px solid var(--gold);
+      padding: 25px 15px;
+    }
+
+    .process-item span {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .process-item h3 {
+      margin-top: 25px;
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    .process-item p {
+      margin-top: 12px;
+      color: #777;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      padding: 150px 7%;
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(245,169,0,0.12),
+          transparent 45%
+        ),
+        #090909;
+
+      border-top: 1px solid #222;
+    }
+
+    .cta h2 {
+      font-size: clamp(45px, 8vw, 100px);
+      line-height: 0.9;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -4px;
+    }
+
+    .cta h2 span {
+      color: var(--gold);
+    }
+
+    .cta p {
+      margin: 25px auto 35px;
+      color: #999;
+      max-width: 550px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 45px 7%;
+
+      background: #030303;
+
+      border-top: 1px solid #1d1d1d;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      width: 130px;
+    }
+
+    .footer-logo img {
+      width: 100%;
+    }
+
+    .footer-text {
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-social a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-social a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      nav {
+        padding: 15px 5%;
+      }
+
+      .nav-logo {
+        width: 105px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 80px 5%;
+      }
+
+      .hero {
+        padding: 120px 5% 70px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        min-height: 360px;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta {
+        padding: 100px 5%;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .about-stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav>
+
+    <a href="#home" class="nav-logo">
+      <img src="453C6350-5F13-4C4B-8520-DC842FEA73F0.png"
+           alt="Growth Media Logo">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+  </nav>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero" id="home">
+
+      <div class="hero-content">
+
+        <div class="hero-logo">
+          <img src="453C6350-5F13-4C4B-8520-DC842FEA73F0.png"
+               alt="Growth Media">
+        </div>
+
+        <div class="hero-line"></div>
+
+        <h1>
+          We Create<br>
+          <span>Real Impact.</span>
+        </h1>
+
+        <p>
+          Growth Media is a creative production studio built around
+          real moments, real passion and real results.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#work" class="btn">
+            View Our Work
+          </a>
+
+          <a href="#contact" class="btn btn-outline">
+            Start A Project
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section class="about" id="about">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          Who We Are
+        </div>
+
+        <h2 class="section-title">
+          Built For<br>
+          <span>Growth.</span>
+        </h2>
+
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-text">
+
+          <p>
+            We don't just create content.
+            We build visual stories that make brands impossible to ignore.
+          </p>
+
+          <p>
+            From commercial productions and social media content
+            to cinematic brand stories, every project starts with
+            one simple question:
+            how can we make people stop, watch and remember?
+          </p>
+
+          <p>
+            That's where strategy meets production.
+          </p>
+
+        </div>
+
+
+        <div class="about-stat-grid">
+
+          <div class="stat">
+            <div class="stat-number">01</div>
+            <div class="stat-label">Creative Direction</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number">02</div>
+            <div class="stat-label">Production</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number">03</div>
+            <div class="stat-label">Visual Storytelling</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number">04</div>
+            <div class="stat-label">Real Results</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICES
+    ========================== -->
+
+    <section class="services" id="services">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          What We Do
+        </div>
+
+        <h2 class="section-title">
+          Our<br>
+          <span>Services.</span>
+        </h2>
+
+      </div>
+
+
+      <div class="services-grid">
+
+        <div class="service">
+          <div class="service-number">01 / PRODUCTION</div>
+
+          <h3>
+            Commercial<br>
+            Production
+          </h3>
+
+          <p>
+            Cinematic commercials and brand films
+            created to communicate your story.
+          </p>
+        </div>
+
+
+        <div class="service">
+          <div class="service-number">02 / SOCIAL</div>
+
+          <h3>
+            Social<br>
+            Content
+          </h3>
+
+          <p>
+            Reels, campaigns and social-first content
+            designed to stop the scroll.
+          </p>
+        </div>
+
+
+        <div class="service">
+          <div class="service-number">03 / BRAND</div>
+
+          <h3>
+            Visual<br>
+            Storytelling
+          </h3>
+
+          <p>
+            Turning your brand identity into powerful
+            visual stories people remember.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PORTFOLIO
+    ========================== -->
+
+    <section class="portfolio" id="work">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          Selected Work
+        </div>
+
+        <h2 class="section-title">
+          Real<br>
+          <span>Projects.</span>
+        </h2>
+
+        <p class="section-description">
+          A selection of productions created by Growth Media.
+          More than visuals — stories built to move brands forward.
+        </p>
+
+      </div>
+
+
+      <div class="portfolio-grid">
+
+        <article class="project">
+
+          <div class="project-content">
+
+            <span class="project-tag">
+              Behind The Scene
+            </span>
+
+            <h3>
+              El Bankeer
+            </h3>
+
+            <p>
+              Creative production & visual storytelling
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="project">
+
+          <div class="project-content">
+
+            <span class="project-tag">
+              Commercial
+            </span>
+
+            <h3>
+              Al Waha Mall
+            </h3>
+
+            <p>
+              Brand content & commercial production
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="project">
+
+          <div class="project-content">
+
+            <span class="project-tag">
+              Social Campaign
+            </span>
+
+            <h3>
+              Warrior Break
+            </h3>
+
+            <p>
+              Concept development & campaign production
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="project">
+
+          <div class="project-content">
+
+            <span class="project-tag">
+              Production
+            </span>
+
+            <h3>
+              Behind The Scene
+            </h3>
+
+            <p>
+              Production coverage & cinematic storytelling
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROCESS
+    ========================== -->
+
+    <section class="process">
+
+      <div class="section-header">
+
+        <div class="eyebrow">
+          How We Work
+        </div>
+
+        <h2 class="section-title">
+          From Idea<br>
+          <span>To Impact.</span>
+        </h2>
+
+      </div>
+
+
+      <div class="process-grid">
+
+        <div class="process-item">
+
+          <span>01</span>
+
+          <h3>
+            Concept
+          </h3>
+
+          <p>
+            We understand the brand, audience
+            and objective before creating anything.
+          </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <span>02</span>
+
+          <h3>
+            Direction
+          </h3>
+
+          <p>
+            We build the visual direction,
+            references and production plan.
+          </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <span>03</span>
+
+          <h3>
+            Production
+          </h3>
+
+          <p>
+            Our team turns the concept into
+            real footage and real moments.
+          </p>
+
+        </div>
+
+
+        <div class="process-item">
+
+          <span>04</span>
+
+          <h3>
+            Results
+          </h3>
+
+          <p>
+            The final story is designed to
+            create attention and drive action.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <section class="cta" id="contact">
+
+      <div class="eyebrow">
+        Let's Create Something
+      </div>
+
+      <h2>
+        Your Story.<br>
+        <span>Our Lens.</span>
+      </h2>
+
+      <p>
+        Have a project in mind?
+        Let's turn the idea into something people remember.
+      </p>
+
+      <a href="mailto:hello@growthmedia.com" class="btn">
+        Start A Conversation
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-logo">
+
+      <img src="453C6350-5F13-4C4B-8520-DC842FEA73F0.png"
+           alt="Growth Media">
+
+    </div>
+
+    <div class="footer-text">
+      REAL MOMENTS &nbsp; | &nbsp;
+      REAL PASSION &nbsp; | &nbsp;
+      REAL RESULTS
+    </div>
+
+    <div class="footer-social">
+
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
