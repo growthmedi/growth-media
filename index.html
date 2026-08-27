@@ -1,1887 +1,2675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Growth Media — Creative Production Studio</title>
-
-  <meta name="description"
-        content="Growth Media — Creative Production, Photography, Videography, Drone and Visual Content.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --black: #050505;
-      --dark: #0b0b0b;
-      --dark-2: #111111;
-      --white: #f5f5f5;
-      --muted: #999999;
-      --gold: #f5a400;
-      --gold-light: #ffc44d;
-      --line: rgba(255,255,255,.10);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font-family: inherit;
-    }
-
-    /* =========================
-       LOADER
-    ========================= */
-
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: #050505;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity .8s ease, visibility .8s ease;
-    }
-
-    #loader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-inner {
-      text-align: center;
-    }
-
-    .loader-logo {
-      width: 110px;
-      max-width: 30vw;
-      animation: logoPulse 1.6s infinite ease-in-out;
-    }
-
-    .loader-line {
-      width: 140px;
-      height: 2px;
-      background: rgba(255,255,255,.12);
-      margin: 30px auto 0;
-      overflow: hidden;
-    }
-
-    .loader-line span {
-      display: block;
-      width: 45%;
-      height: 100%;
-      background: var(--gold);
-      animation: loading 1.4s infinite ease-in-out;
-    }
-
-    @keyframes loading {
-      0% {
-        transform: translateX(-120%);
-      }
-      100% {
-        transform: translateX(340%);
-      }
-    }
-
-    @keyframes logoPulse {
-      50% {
-        transform: scale(1.06);
-        filter: drop-shadow(0 0 20px rgba(245,164,0,.35));
-      }
-    }
-
-    /* =========================
-       NAV
-    ========================= */
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 6vw;
-      background: rgba(5,5,5,.45);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid transparent;
-      transition: .4s ease;
-    }
-
-    nav.scrolled {
-      height: 68px;
-      background: rgba(5,5,5,.88);
-      border-bottom-color: var(--line);
-    }
-
-    .nav-logo img {
-      width: 125px;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 34px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 600;
-      color: #ccc;
-      transition: .3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .nav-contact {
-      border: 1px solid rgba(245,164,0,.5);
-      padding: 11px 18px;
-      border-radius: 30px;
-      color: var(--white) !important;
-    }
-
-    .nav-contact:hover {
-      background: var(--gold);
-      color: #000 !important;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 140px 7vw 90px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 80% 30%, rgba(245,164,0,.12), transparent 25%),
-        radial-gradient(circle at 10% 80%, rgba(255,255,255,.05), transparent 25%),
-        #050505;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      opacity: .16;
-      background-image:
-        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: linear-gradient(to bottom, black, transparent);
-    }
-
-    .hero-orb {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      right: -180px;
-      top: 15%;
-      border-radius: 50%;
-      background: rgba(245,164,0,.08);
-      filter: blur(80px);
-      animation: orbMove 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes orbMove {
-      from {
-        transform: translate(0,0) scale(1);
-      }
-      to {
-        transform: translate(-100px,80px) scale(1.2);
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 25px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 35px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .hero h1 {
-      font-size: clamp(58px, 10vw, 145px);
-      line-height: .82;
-      letter-spacing: -7px;
-      text-transform: uppercase;
-      font-weight: 900;
-      max-width: 1100px;
-    }
-
-    .hero h1 span {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.55);
-    }
-
-    .hero-description {
-      max-width: 580px;
-      margin-top: 35px;
-      color: #aaa;
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 0 25px;
-      border-radius: 4px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: .35s ease;
-    }
-
-    .btn-primary {
-      background: var(--gold);
-      color: #000;
-    }
-
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(245,164,0,.2);
-    }
-
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,.2);
-      color: #fff;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      transform: translateY(-3px);
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 35px;
-      right: 7vw;
-      writing-mode: vertical-rl;
-      color: #777;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    /* =========================
-       MARQUEE
-    ========================= */
-
-    .marquee {
-      overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: #090909;
-      padding: 22px 0;
-    }
-
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      animation: marquee 25s linear infinite;
-    }
-
-    .marquee-item {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-      margin-right: 35px;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: #888;
-    }
-
-    .marquee-item b {
-      color: var(--gold);
-    }
-
-    @keyframes marquee {
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* =========================
-       GENERAL
-    ========================= */
-
-    section {
-      position: relative;
-      padding: 120px 7vw;
-    }
-
-    .section-label {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .section-title {
-      font-size: clamp(40px, 6vw, 82px);
-      line-height: .95;
-      letter-spacing: -4px;
-      text-transform: uppercase;
-      font-weight: 900;
-    }
-
-    .section-title span {
-      color: #555;
-    }
-
-    /* =========================
-       ABOUT
-    ========================= */
-
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 90px;
-      align-items: center;
-      background: #080808;
-    }
-
-    .about-text {
-      color: #999;
-      line-height: 1.9;
-      font-size: 16px;
-      margin-top: 30px;
-      max-width: 620px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-    }
-
-    .stat {
-      background: #0b0b0b;
-      padding: 40px 30px;
-      min-height: 170px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .stat-number {
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--gold);
-    }
-
-    .stat-name {
-      color: #888;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-top: 8px;
-    }
-
-    /* =========================
-       SERVICES
-    ========================= */
-
-    .services {
-      background: #050505;
-    }
-
-    .services-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      align-items: flex-end;
-      margin-bottom: 70px;
-    }
-
-    .services-intro {
-      max-width: 390px;
-      color: #888;
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .service {
-      min-height: 270px;
-      padding: 35px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      position: relative;
-      overflow: hidden;
-      transition: .5s ease;
-    }
-
-    .service::after {
-      content: "";
-      position: absolute;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      background: var(--gold);
-      right: -100px;
-      bottom: -100px;
-      filter: blur(50px);
-      opacity: 0;
-      transition: .5s ease;
-    }
-
-    .service:hover {
-      background: #101010;
-      transform: translateY(-7px);
-    }
-
-    .service:hover::after {
-      opacity: .18;
-    }
-
-    .service-number {
-      color: var(--gold);
-      font-size: 11px;
-      letter-spacing: 2px;
-    }
-
-    .service h3 {
-      margin-top: 75px;
-      font-size: 22px;
-      text-transform: uppercase;
-    }
-
-    .service p {
-      color: #777;
-      font-size: 12px;
-      line-height: 1.7;
-      margin-top: 12px;
-    }
-
-    /* =========================
-       PORTFOLIO
-    ========================= */
-
-    .portfolio {
-      background: #080808;
-    }
-
-    .portfolio-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 60px;
-    }
-
-    .portfolio-note {
-      color: #777;
-      font-size: 12px;
-      max-width: 330px;
-      line-height: 1.7;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
-
-    .video-card {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      background: #111;
-      cursor: pointer;
-      border: 1px solid var(--line);
-    }
-
-    .video-card iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      pointer-events: none;
-      transform: scale(1.01);
-      transition: transform .7s ease;
-    }
-
-    .video-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to top, rgba(0,0,0,.8), transparent 50%),
-        linear-gradient(90deg, rgba(245,164,0,.1), transparent);
-      pointer-events: none;
-    }
-
-    .video-card:hover iframe {
-      transform: scale(1.05);
-    }
-
-    .video-info {
-      position: absolute;
-      z-index: 2;
-      left: 25px;
-      right: 25px;
-      bottom: 23px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      pointer-events: none;
-    }
-
-    .video-category {
-      font-size: 10px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 6px;
-    }
-
-    .video-title {
-      font-size: 21px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .play-icon {
-      width: 48px;
-      height: 48px;
-      border: 1px solid rgba(255,255,255,.4);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      backdrop-filter: blur(8px);
-    }
-
-    /* =========================
-       CLIENTS
-    ========================= */
-
-    .clients {
-      background: #050505;
-      text-align: center;
-    }
-
-    .clients .section-title {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .clients-subtitle {
-      color: #777;
-      margin: 25px auto 60px;
-      max-width: 550px;
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    .logos-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .client-logo {
-      height: 150px;
-      padding: 30px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: .4s ease;
-      background: #080808;
-    }
-
-    .client-logo:hover {
-      background: #111;
-    }
-
-    .client-logo img {
-      max-width: 150px;
-      max-height: 65px;
-      object-fit: contain;
-      filter: grayscale(1) brightness(1.8);
-      opacity: .65;
-      transition: .4s ease;
-    }
-
-    .client-logo:hover img {
-      filter: grayscale(0) brightness(1);
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    /* =========================
-       CTA
-    ========================= */
-
-    .cta {
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at center, rgba(245,164,0,.16), transparent 38%),
-        #050505;
-    }
-
-    .cta::before {
-      content: "GROWTH";
-      position: absolute;
-      font-size: 25vw;
-      line-height: 1;
-      font-weight: 900;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.035);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .cta-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .cta h2 {
-      font-size: clamp(55px, 9vw, 130px);
-      line-height: .85;
-      letter-spacing: -6px;
-      text-transform: uppercase;
-      font-weight: 900;
-    }
-
-    .cta h2 span {
-      color: var(--gold);
-    }
-
-    .cta p {
-      color: #888;
-      margin: 30px auto;
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    /* =========================
-       CONTACT
-    ========================= */
-
-    .contact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      background: #0a0a0a;
-    }
-
-    .contact-text {
-      color: #888;
-      line-height: 1.8;
-      margin-top: 25px;
-      max-width: 500px;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .contact-link {
-      border: 1px solid var(--line);
-      padding: 23px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: .35s ease;
-    }
-
-    .contact-link:hover {
-      border-color: var(--gold);
-      transform: translateX(7px);
-    }
-
-    .contact-label {
-      font-size: 10px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .contact-value {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .arrow {
-      color: var(--gold);
-      font-size: 20px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      padding: 45px 7vw;
-      border-top: 1px solid var(--line);
-      background: #050505;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
-    }
-
-    footer img {
-      width: 115px;
-    }
-
-    footer p {
-      color: #555;
-      font-size: 11px;
-    }
-
-    /* =========================
-       SCROLL ANIMATION
-    ========================= */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity .8s ease, transform .8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 900px) {
-
-      nav {
-        padding: 0 5vw;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        padding: 130px 6vw 80px;
-      }
-
-      .hero h1 {
-        font-size: clamp(52px, 17vw, 100px);
-        letter-spacing: -4px;
-      }
-
-      .hero-description {
-        font-size: 14px;
-      }
-
-      section {
-        padding: 85px 6vw;
-      }
-
-      .about,
-      .contact {
-        grid-template-columns: 1fr;
-        gap: 55px;
-      }
-
-      .services-header,
-      .portfolio-header {
-        display: block;
-      }
-
-      .services-intro,
-      .portfolio-note {
-        margin-top: 25px;
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .logos-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .client-logo {
-        height: 125px;
-      }
-
-      .client-logo img {
-        max-width: 115px;
-      }
-
-      .cta h2 {
-        letter-spacing: -3px;
-      }
-
-      footer {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 550px) {
-
-      .nav-logo img {
-        width: 105px;
-      }
-
-      .nav-contact {
-        padding: 9px 13px;
-        font-size: 10px !important;
-      }
-
-      .hero-scroll {
-        display: none;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .service {
-        min-height: 220px;
-      }
-
-      .service h3 {
-        margin-top: 55px;
-      }
-
-      .video-card {
-        aspect-ratio: 16 / 10;
-      }
-
-      .video-title {
-        font-size: 15px;
-      }
-
-      .video-info {
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
-      }
-
-      .play-icon {
-        width: 40px;
-        height: 40px;
-      }
-
-      .logos-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .client-logo {
-        height: 105px;
-        padding: 15px;
-      }
-
-      .client-logo img {
-        max-width: 95px;
-        max-height: 45px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Growth Media — Creative Production Studio</title>
+
+<meta name="description"
+content="Growth Media — Creative Production, Photography, Film, Drone and Visual Storytelling.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --navy:#071522;
+  --navy2:#0b1d2b;
+  --ice:#f4f8fb;
+  --muted:#8796a3;
+  --blue:#8fd3ff;
+  --blue2:#4db5f5;
+  --line:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.045);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:"Inter",sans-serif;
+  background:var(--navy);
+  color:var(--ice);
+  overflow-x:hidden;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font-family:inherit;
+}
+
+/* =========================
+   CURSOR LIGHT
+========================= */
+
+.cursor-light{
+  position:fixed;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(
+    circle,
+    rgba(143,211,255,.10),
+    transparent 68%
+  );
+  transform:translate(-50%,-50%);
+  z-index:1;
+  opacity:.8;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:#050d14;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity .8s ease,visibility .8s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  width:130px;
+  animation:loaderFloat 2s ease-in-out infinite;
+}
+
+.loader-line{
+  width:150px;
+  height:2px;
+  background:rgba(255,255,255,.12);
+  margin:30px auto 0;
+  overflow:hidden;
+}
+
+.loader-line span{
+  display:block;
+  width:40%;
+  height:100%;
+  background:var(--blue);
+  animation:loaderLine 1.3s infinite ease-in-out;
+}
+
+@keyframes loaderFloat{
+  50%{
+    transform:translateY(-8px) scale(1.03);
+  }
+}
+
+@keyframes loaderLine{
+  from{transform:translateX(-130%)}
+  to{transform:translateX(350%)}
+}
+
+/* =========================
+   NAV
+========================= */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:82px;
+  z-index:1000;
+  padding:0 6vw;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(7,21,34,.42);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  transition:.4s ease;
+}
+
+nav.scrolled{
+  height:68px;
+  background:rgba(7,21,34,.90);
+  border-bottom-color:var(--line);
+}
+
+.nav-logo img{
+  width:125px;
+  display:block;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+}
+
+.nav-links a{
+  color:#b8c6d0;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  transition:.3s ease;
+}
+
+.nav-links a:hover{
+  color:var(--blue);
+}
+
+.nav-talk{
+  border:1px solid rgba(143,211,255,.5);
+  padding:11px 19px;
+  border-radius:30px;
+}
+
+.nav-talk:hover{
+  background:var(--blue);
+  color:#06111a !important;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  padding:150px 7vw 100px;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 78% 35%,
+      rgba(77,181,245,.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(143,211,255,.06),
+      transparent 25%
+    ),
+    var(--navy);
+}
+
+.hero-noise{
+  position:absolute;
+  inset:0;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+.hero-ring{
+  position:absolute;
+  width:600px;
+  height:600px;
+  right:-220px;
+  top:15%;
+  border:1px solid rgba(143,211,255,.10);
+  border-radius:50%;
+  animation:ringRotate 18s linear infinite;
+}
+
+.hero-ring::before,
+.hero-ring::after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(143,211,255,.07);
+  border-radius:50%;
+}
+
+.hero-ring::before{
+  inset:70px;
+}
+
+.hero-ring::after{
+  inset:150px;
+}
+
+@keyframes ringRotate{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.hero-content{
+  position:relative;
+  z-index:3;
+  max-width:1050px;
+}
+
+.hero-label{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--blue);
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:25px;
+}
+
+.hero-label::before{
+  content:"";
+  width:38px;
+  height:1px;
+  background:var(--blue);
+}
+
+.hero-logo{
+  width:220px;
+  margin-bottom:30px;
+  animation:heroLogo 5s ease-in-out infinite;
+}
+
+@keyframes heroLogo{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-7px);
+  }
+}
+
+.hero h1{
+  font-size:clamp(55px,9vw,138px);
+  line-height:.82;
+  letter-spacing:-7px;
+  text-transform:uppercase;
+  font-weight:900;
+  max-width:1050px;
+}
+
+.hero h1 .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(244,248,251,.55);
+}
+
+.hero h1 .blue{
+  color:var(--blue);
+}
+
+.hero-description{
+  max-width:590px;
+  margin-top:35px;
+  color:#91a0ab;
+  line-height:1.8;
+  font-size:16px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:14px;
+  margin-top:38px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  min-height:54px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 25px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.7px;
+  transition:.35s ease;
+}
+
+.btn-primary{
+  background:var(--blue);
+  color:#06111a;
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 45px rgba(77,181,245,.20);
+}
+
+.btn-secondary{
+  border:1px solid var(--line);
+  color:#dce6ec;
+  background:rgba(255,255,255,.02);
+}
+
+.btn-secondary:hover{
+  border-color:var(--blue);
+  color:var(--blue);
+  transform:translateY(-4px);
+}
+
+.hero-scroll{
+  position:absolute;
+  right:7vw;
+  bottom:40px;
+  color:#60707d;
+  font-size:9px;
+  letter-spacing:3px;
+  writing-mode:vertical-rl;
+  text-transform:uppercase;
+}
+
+/* =========================
+   MOVING TEXT
+========================= */
+
+.ticker{
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:#081724;
+}
+
+.ticker-track{
+  width:max-content;
+  display:flex;
+  animation:ticker 28s linear infinite;
+}
+
+.ticker-item{
+  display:flex;
+  align-items:center;
+  gap:35px;
+  margin-right:35px;
+  padding:21px 0;
+  color:#71818d;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:3px;
+}
+
+.ticker-item span{
+  color:var(--blue);
+}
+
+@keyframes ticker{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+  position:relative;
+  padding:125px 7vw;
+}
+
+.section-label{
+  color:var(--blue);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-size:clamp(42px,6vw,82px);
+  line-height:.9;
+  letter-spacing:-5px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.section-title span{
+  color:#50616e;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:90px;
+  align-items:center;
+  background:#081622;
+}
+
+.about-text{
+  max-width:650px;
+  margin-top:32px;
+  color:#8999a5;
+  line-height:1.9;
+  font-size:15px;
+}
+
+.about-highlight{
+  margin-top:35px;
+  padding-left:20px;
+  border-left:2px solid var(--blue);
+  color:#dce7ee;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.about-orbit{
+  position:relative;
+  min-height:430px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.orbit{
+  position:absolute;
+  width:360px;
+  height:360px;
+  border:1px solid rgba(143,211,255,.12);
+  border-radius:50%;
+  animation:orbitSpin 18s linear infinite;
+}
+
+.orbit:nth-child(2){
+  width:260px;
+  height:260px;
+  animation-direction:reverse;
+  animation-duration:12s;
+}
+
+.orbit::before{
+  content:"";
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:var(--blue);
+  border-radius:50%;
+  top:20px;
+  left:50%;
+  box-shadow:0 0 25px rgba(143,211,255,.6);
+}
+
+@keyframes orbitSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.about-center{
+  position:relative;
+  z-index:2;
+  width:170px;
+  height:170px;
+  border:1px solid rgba(143,211,255,.25);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(7,21,34,.8);
+  backdrop-filter:blur(10px);
+}
+
+.about-center img{
+  width:105px;
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services{
+  background:var(--navy);
+}
+
+.services-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:50px;
+  margin-bottom:70px;
+}
+
+.services-intro{
+  max-width:390px;
+  color:#81909b;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  border-left:1px solid var(--line);
+}
+
+.service{
+  min-height:290px;
+  padding:34px;
+  position:relative;
+  overflow:hidden;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  transition:.5s ease;
+}
+
+.service-number{
+  color:var(--blue);
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.service h3{
+  margin-top:95px;
+  font-size:21px;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+
+.service p{
+  color:#657580;
+  margin-top:14px;
+  font-size:12px;
+  line-height:1.7;
+  max-width:240px;
+}
+
+.service::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-110px;
+  bottom:-110px;
+  border-radius:50%;
+  background:var(--blue);
+  filter:blur(70px);
+  opacity:0;
+  transition:.5s ease;
+}
+
+.service:hover{
+  background:#0d2130;
+  transform:translateY(-8px);
+}
+
+.service:hover::after{
+  opacity:.14;
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio{
+  background:#081622;
+}
+
+.portfolio-header{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:40px;
+  margin-bottom:65px;
+}
+
+.portfolio-note{
+  max-width:380px;
+  color:#7d8d98;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+
+.video-card{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  background:#0c1822;
+  cursor:pointer;
+  transition:.6s ease;
+}
+
+.video-card.large{
+  grid-column:span 2;
+  aspect-ratio:21/9;
+}
+
+.video-thumb{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.video-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(3,12,19,.94),
+      rgba(3,12,19,.05) 65%
+    );
+  z-index:1;
+}
+
+.video-number{
+  position:absolute;
+  top:22px;
+  right:22px;
+  z-index:2;
+  color:rgba(255,255,255,.45);
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.video-info{
+  position:absolute;
+  left:28px;
+  right:28px;
+  bottom:25px;
+  z-index:3;
+}
+
+.video-category{
+  color:var(--blue);
+  font-size:9px;
+  letter-spacing:3px;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.video-title{
+  font-size:clamp(18px,2.2vw,28px);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-1px;
+}
+
+.play-button{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:72px;
+  height:72px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:50%;
+  background:rgba(7,21,34,.30);
+  backdrop-filter:blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:18px;
+  transition:.45s ease;
+}
+
+.play-button::after{
+  content:"";
+  position:absolute;
+  inset:-9px;
+  border:1px solid rgba(143,211,255,.25);
+  border-radius:50%;
+  animation:playPulse 2s infinite;
+}
+
+@keyframes playPulse{
+  0%{
+    transform:scale(.9);
+    opacity:.8;
+  }
+  100%{
+    transform:scale(1.3);
+    opacity:0;
+  }
+}
+
+.video-card:hover .video-thumb{
+  transform:scale(1.07);
+}
+
+.video-card:hover .play-button{
+  background:var(--blue);
+  color:#06111a;
+  transform:translate(-50%,-50%) scale(1.08);
+}
+
+.video-card:hover{
+  border-color:rgba(143,211,255,.35);
+}
+
+/* =========================
+   VIDEO MODAL
+========================= */
+
+.video-modal{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:rgba(2,8,13,.94);
+  backdrop-filter:blur(20px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:35px;
+  opacity:0;
+  visibility:hidden;
+  transition:.4s ease;
+}
+
+.video-modal.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-content{
+  width:min(1100px,100%);
+  position:relative;
+  transform:translateY(30px) scale(.96);
+  transition:.5s ease;
+}
+
+.video-modal.active .modal-content{
+  transform:translateY(0) scale(1);
+}
+
+.modal-video{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#000;
+  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+
+.modal-video iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.modal-close{
+  position:absolute;
+  right:0;
+  top:-52px;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  background:rgba(7,21,34,.8);
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.modal-title{
+  margin-top:15px;
+  font-size:12px;
+  color:#82939f;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* =========================
+   CLIENTS
+========================= */
+
+.clients{
+  background:var(--navy);
+  padding-bottom:100px;
+}
+
+.clients-heading{
+  max-width:800px;
+}
+
+.clients-subtitle{
+  max-width:580px;
+  margin-top:25px;
+  color:#7d8d98;
+  font-size:14px;
+  line-height:1.8;
+}
+
+/* animated logo wall */
+
+.logo-marquee{
+  margin-top:70px;
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.logo-track{
+  display:flex;
+  width:max-content;
+  animation:logosMove 30s linear infinite;
+}
+
+.logo-group{
+  display:flex;
+}
+
+.client-logo{
+  width:230px;
+  height:145px;
+  padding:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid var(--line);
+  position:relative;
+  background:rgba(255,255,255,.015);
+}
+
+.client-logo img{
+  max-width:155px;
+  max-height:65px;
+  object-fit:contain;
+  opacity:.72;
+  filter:none;
+  transition:.5s ease;
+}
+
+.client-logo:hover img{
+  opacity:1;
+  transform:scale(1.08);
+}
+
+.client-logo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    135deg,
+    transparent,
+    rgba(143,211,255,.06),
+    transparent
+  );
+  transform:translateX(-100%);
+  transition:.7s ease;
+}
+
+.client-logo:hover::after{
+  transform:translateX(100%);
+}
+
+@keyframes logosMove{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+.client-caption{
+  margin-top:30px;
+  text-align:center;
+  color:#5e707c;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+  min-height:75vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(77,181,245,.13),
+      transparent 38%
+    ),
+    #071522;
+}
+
+.cta-word{
+  position:absolute;
+  font-size:25vw;
+  line-height:1;
+  font-weight:900;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.035);
+  white-space:nowrap;
+  pointer-events:none;
+  animation:ctaFloat 8s ease-in-out infinite;
+}
+
+@keyframes ctaFloat{
+  50%{
+    transform:translateX(-2%) scale(1.02);
+  }
+}
+
+.cta-content{
+  position:relative;
+  z-index:2;
+}
+
+.cta h2{
+  font-size:clamp(55px,9vw,130px);
+  line-height:.83;
+  letter-spacing:-7px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.cta h2 span{
+  color:var(--blue);
+}
+
+.cta p{
+  max-width:500px;
+  margin:30px auto;
+  color:#81919c;
+  line-height:1.8;
+  font-size:14px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:90px;
+  background:#081622;
+}
+
+.contact-text{
+  max-width:520px;
+  margin-top:28px;
+  color:#84949f;
+  line-height:1.9;
+  font-size:15px;
+}
+
+.contact-links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.contact-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:25px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.015);
+  transition:.4s ease;
+}
+
+.contact-link:hover{
+  transform:translateX(8px);
+  border-color:rgba(143,211,255,.45);
+  background:rgba(143,211,255,.04);
+}
+
+.contact-label{
+  display:block;
+  color:var(--blue);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.contact-value{
+  font-size:15px;
+  font-weight:700;
+}
+
+.contact-arrow{
+  color:var(--blue);
+  font-size:22px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:45px 7vw;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  border-top:1px solid var(--line);
+  background:#050e15;
+}
+
+footer img{
+  width:115px;
+}
+
+footer p{
+  color:#52626d;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(35px);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+  nav{
+    padding:0 5vw;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    padding:135px 6vw 90px;
+  }
+
+  .hero-logo{
+    width:165px;
+  }
+
+  .hero h1{
+    font-size:clamp(50px,16vw,100px);
+    letter-spacing:-4px;
+  }
+
+  .hero-description{
+    font-size:14px;
+  }
+
+  section{
+    padding:90px 6vw;
+  }
+
+  .about,
+  .contact{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+
+  .about-orbit{
+    min-height:360px;
+  }
+
+  .services-header,
+  .portfolio-header{
+    display:block;
+  }
+
+  .services-intro,
+  .portfolio-note{
+    margin-top:25px;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .video-grid{
+    grid-template-columns:1fr;
+  }
+
+  .video-card.large{
+    grid-column:span 1;
+    aspect-ratio:16/9;
+  }
+
+  .client-logo{
+    width:190px;
+    height:125px;
+  }
+
+  .cta h2{
+    letter-spacing:-4px;
+  }
+
+  footer{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+
+@media(max-width:550px){
+
+  .cursor-light{
+    display:none;
+  }
+
+  nav{
+    height:70px;
+  }
+
+  .nav-logo img{
+    width:105px;
+  }
+
+  .nav-talk{
+    padding:9px 13px;
+    font-size:9px !important;
+  }
+
+  .hero{
+    min-height:92vh;
+  }
+
+  .hero-logo{
+    width:145px;
+  }
+
+  .hero h1{
+    font-size:clamp(48px,16vw,82px);
+  }
+
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .hero-scroll{
+    display:none;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service{
+    min-height:230px;
+  }
+
+  .service h3{
+    margin-top:65px;
+  }
+
+  .video-card{
+    aspect-ratio:16/10;
+  }
+
+  .video-info{
+    left:18px;
+    right:18px;
+    bottom:18px;
+  }
+
+  .video-title{
+    font-size:17px;
+  }
+
+  .play-button{
+    width:62px;
+    height:62px;
+  }
+
+  .client-logo{
+    width:155px;
+    height:105px;
+    padding:15px;
+  }
+
+  .client-logo img{
+    max-width:110px;
+    max-height:48px;
+  }
+
+  .video-modal{
+    padding:15px;
+  }
+
+  .modal-close{
+    top:-50px;
+  }
+
+  .contact-value{
+    font-size:13px;
+  }
+
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       LOADER
-  ========================= -->
+<div class="cursor-light" id="cursorLight"></div>
 
-  <div id="loader">
-    <div class="loader-inner">
-      <img src="Logo.PNG" class="loader-logo" alt="Growth Media">
-      <div class="loader-line">
-        <span></span>
-      </div>
+<!-- =========================
+     LOADER
+========================= -->
+
+<div class="loader" id="loader">
+
+  <div class="loader-inner">
+
+    <img
+      src="Logo.PNG"
+      class="loader-logo"
+      alt="Growth Media">
+
+    <div class="loader-line">
+      <span></span>
     </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav id="navbar">
+
+  <a href="#home" class="nav-logo">
+    <img src="Logo.PNG" alt="Growth Media">
+  </a>
+
+  <div class="nav-links">
+
+    <a href="#about">About</a>
+
+    <a href="#services">Services</a>
+
+    <a href="#portfolio">Work</a>
+
+    <a href="#clients">Clients</a>
+
+    <a href="#contact" class="nav-talk">
+      Let's Talk
+    </a>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+  <div class="hero-noise"></div>
+
+  <div class="hero-ring"></div>
+
+  <div class="hero-content reveal">
+
+    <div class="hero-label">
+      Creative Production Studio
+    </div>
+
+    <img
+      src="Logo.PNG"
+      class="hero-logo"
+      alt="Growth Media">
+
+    <h1>
+
+      We Create
+      <span class="outline">Visual</span>
+      <span class="blue">Impact.</span>
+
+    </h1>
+
+    <p class="hero-description">
+
+      Growth Media is a creative production studio
+      creating cinematic films, commercial content,
+      photography, drone production and visual
+      experiences built to move brands forward.
+
+    </p>
+
+    <div class="hero-actions">
+
+      <a
+        href="#portfolio"
+        class="btn btn-primary">
+
+        Explore Our Work
+
+      </a>
+
+      <a
+        href="#contact"
+        class="btn btn-secondary">
+
+        Start A Project
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="hero-scroll">
+    Scroll To Explore
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TICKER
+========================= -->
+
+<div class="ticker">
+
+  <div class="ticker-track">
+
+    <div class="ticker-item">
+      Commercial Production <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Film & Video <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Photography <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Drone Production <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Creative Direction <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Brand Content <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Commercial Production <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Film & Video <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Photography <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Drone Production <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Creative Direction <span>✦</span>
+    </div>
+
+    <div class="ticker-item">
+      Brand Content <span>✦</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+  <div class="reveal">
+
+    <div class="section-label">
+      01 — About Growth Media
+    </div>
+
+    <h2 class="section-title">
+
+      We Don't<br>
+
+      <span>Just Shoot.</span>
+
+    </h2>
+
+    <p class="about-text">
+
+      We create visual stories with purpose.
+      From commercial campaigns and corporate films
+      to industrial productions and aerial cinematography,
+      every project starts with an idea and ends with
+      something people remember.
+
+    </p>
+
+    <div class="about-highlight">
+
+      Creative direction.
+      Production.
+      Post-production.
+      One team from concept to final frame.
+
+    </div>
+
   </div>
 
 
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
+  <div class="about-orbit reveal">
 
-  <nav id="navbar">
+    <div class="orbit"></div>
 
-    <a href="#home" class="nav-logo">
-      <img src="Logo.PNG" alt="Growth Media">
+    <div class="orbit"></div>
+
+    <div class="about-center">
+
+      <img
+        src="Logo.PNG"
+        alt="Growth Media">
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section class="services" id="services">
+
+  <div class="services-header reveal">
+
+    <div>
+
+      <div class="section-label">
+        02 — What We Do
+      </div>
+
+      <h2 class="section-title">
+
+        Built For<br>
+
+        <span>Attention.</span>
+
+      </h2>
+
+    </div>
+
+    <p class="services-intro">
+
+      We combine production, creativity and
+      visual storytelling to create content
+      that works across digital and commercial platforms.
+
+    </p>
+
+  </div>
+
+
+  <div class="services-grid">
+
+    <div class="service reveal">
+
+      <div class="service-number">
+        01
+      </div>
+
+      <h3>
+        Commercial<br>
+        Production
+      </h3>
+
+      <p>
+        Cinematic campaigns and commercial films
+        built around strong visual direction.
+      </p>
+
+    </div>
+
+
+    <div class="service reveal">
+
+      <div class="service-number">
+        02
+      </div>
+
+      <h3>
+        Photography
+      </h3>
+
+      <p>
+        Campaign, product, corporate and
+        lifestyle photography.
+      </p>
+
+    </div>
+
+
+    <div class="service reveal">
+
+      <div class="service-number">
+        03
+      </div>
+
+      <h3>
+        Drone<br>
+        Production
+      </h3>
+
+      <p>
+        Cinematic aerial footage that gives
+        brands a bigger perspective.
+      </p>
+
+    </div>
+
+
+    <div class="service reveal">
+
+      <div class="service-number">
+        04
+      </div>
+
+      <h3>
+        Social<br>
+        Content
+      </h3>
+
+      <p>
+        Short-form visual content designed
+        to stop the scroll.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PORTFOLIO
+========================= -->
+
+<section class="portfolio" id="portfolio">
+
+  <div class="portfolio-header reveal">
+
+    <div>
+
+      <div class="section-label">
+        03 — Selected Work
+      </div>
+
+      <h2 class="section-title">
+
+        Real Work.<br>
+
+        <span>Real Stories.</span>
+
+      </h2>
+
+    </div>
+
+    <p class="portfolio-note">
+
+      A selection of films and productions
+      created by Growth Media across commercial,
+      industrial, corporate and aerial projects.
+
+    </p>
+
+  </div>
+
+
+  <div class="video-grid">
+
+
+    <!-- 01 BEAUTY -->
+
+    <div
+      class="video-card large reveal"
+      data-video="xMzFAYFQf8c"
+      data-title="Beauty Production">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/xMzFAYFQf8c/maxresdefault.jpg"
+        alt="Beauty Production">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        01 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Commercial
+        </div>
+
+        <div class="video-title">
+          Beauty Production
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 02 FACTORY -->
+
+    <div
+      class="video-card reveal"
+      data-video="wj07fXEO66Q"
+      data-title="Factory Production">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/wj07fXEO66Q/maxresdefault.jpg"
+        alt="Factory Production">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        02 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Industrial
+        </div>
+
+        <div class="video-title">
+          Factory Production
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 03 MAINTENANCE -->
+
+    <div
+      class="video-card reveal"
+      data-video="Y9W_1hV7KzY"
+      data-title="Maintenance Center">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/Y9W_1hV7KzY/maxresdefault.jpg"
+        alt="Maintenance Center">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        03 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Corporate
+        </div>
+
+        <div class="video-title">
+          Maintenance Center
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 04 ETON G -->
+
+    <div
+      class="video-card reveal"
+      data-video="vLPm__5DCgA"
+      data-title="Industrial Production">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/vLPm__5DCgA/maxresdefault.jpg"
+        alt="Industrial Production">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        04 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Industrial
+        </div>
+
+        <div class="video-title">
+          Industrial Production
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 05 DRONE -->
+
+    <div
+      class="video-card reveal"
+      data-video="vh5tF7S8Xmw"
+      data-title="Drone Production">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/vh5tF7S8Xmw/maxresdefault.jpg"
+        alt="Drone Production">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        05 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Aerial
+        </div>
+
+        <div class="video-title">
+          Drone Production
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 06 FRESH -->
+
+    <div
+      class="video-card reveal"
+      data-video="WwgxZPh-svk"
+      data-title="Fresh Production">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/WwgxZPh-svk/maxresdefault.jpg"
+        alt="Fresh Production">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        06 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Commercial
+        </div>
+
+        <div class="video-title">
+          Fresh Production
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 07 BRAND FILM -->
+
+    <div
+      class="video-card reveal"
+      data-video="xTLPBecpSpY"
+      data-title="Brand Film">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/xTLPBecpSpY/maxresdefault.jpg"
+        alt="Brand Film">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        07 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Brand Film
+        </div>
+
+        <div class="video-title">
+          Brand Film
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 08 BTS -->
+
+    <div
+      class="video-card reveal"
+      data-video="ghtNDgrCEC4"
+      data-title="Behind The Scene">
+
+      <img
+        class="video-thumb"
+        src="https://i.ytimg.com/vi/ghtNDgrCEC4/maxresdefault.jpg"
+        alt="Behind The Scene">
+
+      <div class="video-overlay"></div>
+
+      <div class="video-number">
+        08 / 08
+      </div>
+
+      <div class="play-button">
+        ▶
+      </div>
+
+      <div class="video-info">
+
+        <div class="video-category">
+          Behind The Scene
+        </div>
+
+        <div class="video-title">
+          Behind The Scene
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CLIENTS
+========================= -->
+
+<section class="clients" id="clients">
+
+  <div class="clients-heading reveal">
+
+    <div class="section-label">
+      04 — Selected Clients
+    </div>
+
+    <h2 class="section-title">
+
+      Brands Behind<br>
+
+      <span>The Work.</span>
+
+    </h2>
+
+    <p class="clients-subtitle">
+
+      A selection of brands and organizations
+      we've had the opportunity to create
+      visual content for.
+
+    </p>
+
+  </div>
+
+
+  <!--
+       IMPORTANT:
+       Growth Media Logo is NOT here.
+       Only clients.
+  -->
+
+  <div class="logo-marquee reveal">
+
+    <div class="logo-track">
+
+
+      <!-- GROUP 1 -->
+
+      <div class="logo-group">
+
+        <div class="client-logo">
+          <img
+            src="amr-radi.png.JPG"
+            alt="AMR Radi">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="chery.png.JPG"
+            alt="Chery">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="etisalat.png.JPG"
+            alt="Etisalat">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="fresh.png.JPG"
+            alt="Fresh">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="huawei.png.JPG"
+            alt="Huawei">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-culture.png.JPG"
+            alt="Ministry of Culture">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-energy.png.JPG"
+            alt="Ministry of Energy">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-sports.png.JPG"
+            alt="Ministry of Sports">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="mohamed-salah.png.JPG"
+            alt="Mohamed Salah">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="relief-clinic.png.JPG"
+            alt="Relief Clinic">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="talat-nabieh.png.JPG"
+            alt="Talat Nabieh">
+        </div>
+
+      </div>
+
+
+      <!-- GROUP 2
+           DUPLICATE FOR LOOP
+      -->
+
+      <div class="logo-group">
+
+        <div class="client-logo">
+          <img
+            src="amr-radi.png.JPG"
+            alt="AMR Radi">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="chery.png.JPG"
+            alt="Chery">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="etisalat.png.JPG"
+            alt="Etisalat">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="fresh.png.JPG"
+            alt="Fresh">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="huawei.png.JPG"
+            alt="Huawei">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-culture.png.JPG"
+            alt="Ministry of Culture">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-energy.png.JPG"
+            alt="Ministry of Energy">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="ministry-sports.png.JPG"
+            alt="Ministry of Sports">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="mohamed-salah.png.JPG"
+            alt="Mohamed Salah">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="relief-clinic.png.JPG"
+            alt="Relief Clinic">
+        </div>
+
+        <div class="client-logo">
+          <img
+            src="talat-nabieh.png.JPG"
+            alt="Talat Nabieh">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="client-caption">
+    Selected collaborations · Growth Media
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta">
+
+  <div class="cta-word">
+    GROWTH
+  </div>
+
+  <div class="cta-content reveal">
+
+    <div class="section-label">
+      Ready To Create?
+    </div>
+
+    <h2>
+
+      Let's Make<br>
+
+      <span>Something.</span>
+
+    </h2>
+
+    <p>
+
+      Have a project in mind?
+      Let's turn the idea into something
+      people remember.
+
+    </p>
+
+    <a
+      href="#contact"
+      class="btn btn-primary">
+
+      Start Your Project
+
     </a>
 
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#clients">Clients</a>
-      <a href="#contact" class="nav-contact">Let's Talk</a>
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact" id="contact">
+
+  <div class="reveal">
+
+    <div class="section-label">
+      05 — Contact
     </div>
 
-  </nav>
+    <h2 class="section-title">
+
+      Let's Talk<br>
+
+      <span>Business.</span>
+
+    </h2>
+
+    <p class="contact-text">
+
+      Looking for a production team for
+      your next campaign, commercial,
+      corporate film or creative project?
+
+      Let's talk.
+
+    </p>
+
+  </div>
 
 
-  <!-- =========================
-       HERO
-  ========================= -->
+  <div class="contact-links reveal">
 
-  <main>
 
-    <section class="hero" id="home">
+    <!-- EMAIL -->
 
-      <div class="hero-grid"></div>
-      <div class="hero-orb"></div>
+    <a
+      class="contact-link"
+      href="mailto:growthmedia8826@gmail.com">
 
-      <div class="hero-content reveal">
+      <div>
 
-        <div class="eyebrow">
-          Creative Production Studio
-        </div>
+        <span class="contact-label">
+          Email
+        </span>
 
-        <h1>
-          We Create
-          <span>Moments</span>
-          That Grow.
-        </h1>
-
-        <p class="hero-description">
-          Growth Media is a creative production studio built around
-          photography, filmmaking, commercial content, drone production
-          and visual storytelling.
-        </p>
-
-        <div class="hero-buttons">
-
-          <a href="#portfolio" class="btn btn-primary">
-            Explore Our Work
-          </a>
-
-          <a href="#contact" class="btn btn-secondary">
-            Start A Project
-          </a>
-
-        </div>
+        <span class="contact-value">
+          growthmedia8826@gmail.com
+        </span>
 
       </div>
 
-      <div class="hero-scroll">
-        Scroll To Explore
-      </div>
+      <span class="contact-arrow">
+        ↗
+      </span>
 
-    </section>
+    </a>
 
 
-    <!-- =========================
-         MARQUEE
-    ========================= -->
+    <!-- WHATSAPP -->
 
-    <div class="marquee">
+    <a
+      class="contact-link"
+      href="https://wa.me/201554924509?text=Hello%20Growth%20Media%2C%20I%27m%20interested%20in%20working%20with%20you."
+      target="_blank"
+      rel="noopener noreferrer">
 
-      <div class="marquee-track">
+      <div>
 
-        <div class="marquee-item">
-          Creative Production <b>✦</b>
-        </div>
+        <span class="contact-label">
+          WhatsApp
+        </span>
 
-        <div class="marquee-item">
-          Photography <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Film & Video <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Drone Production <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Commercial Content <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Creative Production <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Photography <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Film & Video <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Drone Production <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-          Commercial Content <b>✦</b>
-        </div>
+        <span class="contact-value">
+          +20 155 492 4509
+        </span>
 
       </div>
+
+      <span class="contact-arrow">
+        ↗
+      </span>
+
+    </a>
+
+
+    <!-- CALL -->
+
+    <a
+      class="contact-link"
+      href="tel:+201554924509">
+
+      <div>
+
+        <span class="contact-label">
+          Call Us
+        </span>
+
+        <span class="contact-value">
+          +20 155 492 4509
+        </span>
+
+      </div>
+
+      <span class="contact-arrow">
+        ↗
+      </span>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     VIDEO MODAL
+========================= -->
+
+<div
+  class="video-modal"
+  id="videoModal">
+
+  <div class="modal-content">
+
+    <button
+      class="modal-close"
+      id="modalClose"
+      aria-label="Close video">
+
+      ×
+
+    </button>
+
+    <div class="modal-video">
+
+      <iframe
+        id="modalIframe"
+        src=""
+        title="Growth Media Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
 
     </div>
 
+    <div
+      class="modal-title"
+      id="modalTitle">
+    </div>
 
-    <!-- =========================
-         ABOUT
-    ========================= -->
+  </div>
 
-    <section class="about" id="about">
+</div>
 
-      <div class="reveal">
 
-        <div class="section-label">
-          01 — About Growth Media
-        </div>
+<!-- =========================
+     FOOTER
+========================= -->
 
-        <h2 class="section-title">
-          Visuals<br>
-          <span>With Purpose.</span>
-        </h2>
-
-        <p class="about-text">
-          We don't just shoot content.
-          We build visual experiences that make brands look,
-          feel and perform better.
-          From cinematic commercials to industrial storytelling,
-          every frame is created with intention.
-        </p>
+<footer>
 
-      </div>
+  <img
+    src="Logo.PNG"
+    alt="Growth Media">
 
-      <div class="stats reveal">
+  <p>
+    © 2026 Growth Media. All Rights Reserved.
+  </p>
 
-        <div class="stat">
-          <div class="stat-number">01</div>
-          <div class="stat-name">Creative Direction</div>
-        </div>
+  <p>
+    Creative Production Studio
+  </p>
 
-        <div class="stat">
-          <div class="stat-number">02</div>
-          <div class="stat-name">Production</div>
-        </div>
+</footer>
 
-        <div class="stat">
-          <div class="stat-number">03</div>
-          <div class="stat-name">Post Production</div>
-        </div>
 
-        <div class="stat">
-          <div class="stat-number">04</div>
-          <div class="stat-name">Brand Content</div>
-        </div>
+<script>
 
-      </div>
+/* =========================
+   LOADER
+========================= */
 
-    </section>
+window.addEventListener("load",function(){
 
+  setTimeout(function(){
 
-    <!-- =========================
-         SERVICES
-    ========================= -->
+    document
+      .getElementById("loader")
+      .classList.add("hide");
 
-    <section class="services" id="services">
+  },700);
 
-      <div class="services-header reveal">
+});
 
-        <div>
-          <div class="section-label">
-            02 — What We Do
-          </div>
 
-          <h2 class="section-title">
-            Built For<br>
-            <span>Brands.</span>
-          </h2>
-        </div>
+/* =========================
+   NAVBAR
+========================= */
 
-        <p class="services-intro">
-          From the first idea to the final frame,
-          we handle the complete creative production process.
-        </p>
+const navbar =
+  document.getElementById("navbar");
 
-      </div>
+window.addEventListener("scroll",function(){
 
+  if(window.scrollY > 40){
 
-      <div class="services-grid">
+    navbar.classList.add("scrolled");
 
-        <div class="service reveal">
-          <div class="service-number">01</div>
-          <h3>Commercial<br>Production</h3>
-          <p>
-            High-end commercial videos created to communicate
-            your brand with impact.
-          </p>
-        </div>
+  }else{
 
-        <div class="service reveal">
-          <div class="service-number">02</div>
-          <h3>Photography</h3>
-          <p>
-            Professional photography for campaigns,
-            products, brands and corporate content.
-          </p>
-        </div>
+    navbar.classList.remove("scrolled");
 
-        <div class="service reveal">
-          <div class="service-number">03</div>
-          <h3>Drone<br>Production</h3>
-          <p>
-            Cinematic aerial footage that gives your story
-            a completely different perspective.
-          </p>
-        </div>
+  }
 
-        <div class="service reveal">
-          <div class="service-number">04</div>
-          <h3>Social<br>Content</h3>
-          <p>
-            Scroll-stopping visual content built for modern
-            digital platforms.
-          </p>
-        </div>
+});
 
-      </div>
 
-    </section>
+/* =========================
+   CURSOR LIGHT
+========================= */
 
+const cursorLight =
+  document.getElementById("cursorLight");
 
-    <!-- =========================
-         PORTFOLIO
-    ========================= -->
+if(cursorLight){
 
-    <section class="portfolio" id="portfolio">
+  window.addEventListener("mousemove",function(e){
 
-      <div class="portfolio-header reveal">
+    cursorLight.style.left = e.clientX + "px";
+    cursorLight.style.top = e.clientY + "px";
 
-        <div>
+  });
 
-          <div class="section-label">
-            03 — Selected Work
-          </div>
+}
 
-          <h2 class="section-title">
-            Our<br>
-            <span>Portfolio.</span>
-          </h2>
 
-        </div>
+/* =========================
+   SCROLL REVEAL
+========================= */
 
-        <p class="portfolio-note">
-          A selection of production work created by Growth Media
-          across commercial, industrial, corporate and aerial projects.
-        </p>
+const observer =
+  new IntersectionObserver(
 
-      </div>
+    function(entries){
 
+      entries.forEach(function(entry){
 
-      <div class="video-grid">
+        if(entry.isIntersecting){
 
+          entry.target.classList.add("visible");
 
-        <!-- BEAUTY -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/xMzFAYFQf8c?rel=0&modestbranding=1"
-            title="Beauty Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Commercial
-              </div>
-
-              <div class="video-title">
-                Beauty Production
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- FACTORY -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/wj07fXEO66Q?rel=0&modestbranding=1"
-            title="Factory Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Industrial
-              </div>
-
-              <div class="video-title">
-                Factory Production
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MAINTENANCE -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/Y9W_1hV7KzY?rel=0&modestbranding=1"
-            title="Maintenance Center"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Corporate
-              </div>
-
-              <div class="video-title">
-                Maintenance Center
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- ETONG -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/vLPm__5DCgA?rel=0&modestbranding=1"
-            title="EtonG Factory"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Industrial
-              </div>
-
-              <div class="video-title">
-                EtonG Factory
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- DRONE -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/vh5tF7S8Xmw?rel=0&modestbranding=1"
-            title="Drone Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Aerial
-              </div>
-
-              <div class="video-title">
-                Drone Production
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- FRESH -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/WwgxZPh-svk?rel=0&modestbranding=1"
-            title="Fresh Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Commercial
-              </div>
-
-              <div class="video-title">
-                Fresh
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- HYUNDAI / CLIENT -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/xTLPBecpSpY?rel=0&modestbranding=1"
-            title="Growth Media Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Brand Film
-              </div>
-
-              <div class="video-title">
-                Growth Media
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- EXTRA -->
-
-        <div class="video-card reveal">
-
-          <iframe
-            src="https://www.youtube.com/embed/ghtNDgrCEC4?rel=0&modestbranding=1"
-            title="Growth Media Production"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-
-          <div class="video-info">
-
-            <div>
-              <div class="video-category">
-                Behind The Scene
-              </div>
-
-              <div class="video-title">
-                Behind The Scene
-              </div>
-            </div>
-
-            <div class="play-icon">
-              ▶
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CLIENTS
-    ========================= -->
-
-    <section class="clients" id="clients">
-
-      <div class="reveal">
-
-        <div class="section-label">
-          04 — Selected Clients
-        </div>
-
-        <h2 class="section-title">
-          Brands We've<br>
-          <span>Worked With.</span>
-        </h2>
-
-        <p class="clients-subtitle">
-          A selection of brands and organizations we've created
-          visual content for.
-        </p>
-
-      </div>
-
-
-      <div class="logos-grid">
-
-        <div class="client-logo reveal">
-          <img src="amr-radi.png.JPG" alt="AMR Radi">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="chery.png.JPG" alt="Chery">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="etisalat.png.JPG" alt="Etisalat">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="fresh.png.JPG" alt="Fresh">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="huawei.png.JPG" alt="Huawei">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="ministry-culture.png.JPG" alt="Ministry of Culture">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="ministry-energy.png.JPG" alt="Ministry of Energy">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="ministry-sports.png.JPG" alt="Ministry of Sports">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="mohamed-salah.png.JPG" alt="Mohamed Salah">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="relief-clinic.png.JPG" alt="Relief Clinic">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="talat-nabieh.png.JPG" alt="Talat Nabieh">
-        </div>
-
-        <div class="client-logo reveal">
-          <img src="Logo.PNG" alt="Growth Media">
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CTA
-    ========================= -->
-
-    <section class="cta">
-
-      <div class="cta-content reveal">
-
-        <div class="section-label">
-          Ready To Create?
-        </div>
-
-        <h2>
-          Let's Make<br>
-          <span>Something.</span>
-        </h2>
-
-        <p>
-          Have a project in mind?
-          Let's turn your idea into visual content
-          people remember.
-        </p>
-
-        <a href="#contact" class="btn btn-primary">
-          Start Your Project
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTACT
-    ========================= -->
-
-    <section class="contact" id="contact">
-
-      <div class="reveal">
-
-        <div class="section-label">
-          05 — Contact
-        </div>
-
-        <h2 class="section-title">
-          Let's Talk<br>
-          <span>Business.</span>
-        </h2>
-
-        <p class="contact-text">
-          Looking for a production team for your next campaign,
-          commercial, corporate film or creative project?
-          Get in touch with us directly.
-        </p>
-
-      </div>
-
-
-      <div class="contact-links reveal">
-
-        <!-- EMAIL -->
-
-        <a
-          href="mailto:growthmedia8826@gmail.com"
-          class="contact-link">
-
-          <div>
-
-            <span class="contact-label">
-              Email
-            </span>
-
-            <span class="contact-value">
-              growthmedia8826@gmail.com
-            </span>
-
-          </div>
-
-          <span class="arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- WHATSAPP -->
-
-        <a
-          href="https://wa.me/201554924509?text=Hello%20Growth%20Media%2C%20I%27m%20interested%20in%20working%20with%20you."
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contact-link">
-
-          <div>
-
-            <span class="contact-label">
-              WhatsApp
-            </span>
-
-            <span class="contact-value">
-              +20 155 492 4509
-            </span>
-
-          </div>
-
-          <span class="arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- CALL -->
-
-        <a
-          href="tel:+201554924509"
-          class="contact-link">
-
-          <div>
-
-            <span class="contact-label">
-              Call Us
-            </span>
-
-            <span class="contact-value">
-              +20 155 492 4509
-            </span>
-
-          </div>
-
-          <span class="arrow">
-            ↗
-          </span>
-
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
-
-  <footer>
-
-    <img src="Logo.PNG" alt="Growth Media">
-
-    <p>
-      © 2026 Growth Media. All Rights Reserved.
-    </p>
-
-    <p>
-      Creative Production Studio
-    </p>
-
-  </footer>
-
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
-
-  <script>
-
-    /* Loader */
-
-    window.addEventListener("load", function() {
-
-      setTimeout(function() {
-        document.getElementById("loader").classList.add("hide");
-      }, 700);
-
-    });
-
-
-    /* Navbar */
-
-    const navbar = document.getElementById("navbar");
-
-    window.addEventListener("scroll", function() {
-
-      if (window.scrollY > 40) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
-      }
-
-    });
-
-
-    /* Scroll Reveal */
-
-    const observer = new IntersectionObserver(
-
-      function(entries) {
-
-        entries.forEach(function(entry) {
-
-          if (entry.isIntersecting) {
-
-            entry.target.classList.add("visible");
-
-            observer.unobserve(entry.target);
-
-          }
-
-        });
-
-      },
-
-      {
-        threshold: 0.12
-      }
-
-    );
-
-
-    document.querySelectorAll(".reveal").forEach(function(element) {
-
-      observer.observe(element);
-
-    });
-
-
-    /* Smooth Anchor */
-
-    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-
-      anchor.addEventListener("click", function(e) {
-
-        const target = document.querySelector(
-          this.getAttribute("href")
-        );
-
-        if (target) {
-
-          e.preventDefault();
-
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+          observer.unobserve(entry.target);
 
         }
 
       });
 
+    },
+
+    {
+      threshold:.12
+    }
+
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(function(element){
+
+    observer.observe(element);
+
+  });
+
+
+/* =========================
+   VIDEO MODAL
+========================= */
+
+const videoModal =
+  document.getElementById("videoModal");
+
+const modalIframe =
+  document.getElementById("modalIframe");
+
+const modalTitle =
+  document.getElementById("modalTitle");
+
+const modalClose =
+  document.getElementById("modalClose");
+
+
+document
+  .querySelectorAll(".video-card")
+  .forEach(function(card){
+
+    card.addEventListener("click",function(){
+
+      const videoId =
+        card.getAttribute("data-video");
+
+      const title =
+        card.getAttribute("data-title");
+
+      if(!videoId){
+        return;
+      }
+
+      modalIframe.src =
+        "https://www.youtube.com/embed/"
+        + videoId
+        + "?autoplay=1&rel=0&modestbranding=1";
+
+      modalTitle.textContent = title;
+
+      videoModal.classList.add("active");
+
+      document.body.classList.add("modal-open");
+
     });
 
-  </script>
+  });
+
+
+function closeVideo(){
+
+  videoModal.classList.remove("active");
+
+  document.body.classList.remove("modal-open");
+
+  setTimeout(function(){
+
+    modalIframe.src = "";
+
+  },350);
+
+}
+
+
+modalClose.addEventListener(
+  "click",
+  closeVideo
+);
+
+
+videoModal.addEventListener(
+  "click",
+  function(e){
+
+    if(e.target === videoModal){
+
+      closeVideo();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key === "Escape"){
+
+      closeVideo();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   SMOOTH ANCHORS
+========================= */
+
+document
+  .querySelectorAll('a[href^="#"]')
+  .forEach(function(anchor){
+
+    anchor.addEventListener(
+      "click",
+      function(e){
+
+        const target =
+          document.querySelector(
+            this.getAttribute("href")
+          );
+
+        if(target){
+
+          e.preventDefault();
+
+          target.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+          });
+
+        }
+
+      }
+    );
+
+  });
+
+</script>
 
 </body>
 </html>
